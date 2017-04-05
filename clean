@@ -1,0 +1,6 @@
+#! /bin/sh
+
+ldconfig
+rm -rf /tmp/*
+find /usr/local/ -name "*.so*" -exec strip {} \; || true
+find /usr/local/bin -exec strip {} \; || true
