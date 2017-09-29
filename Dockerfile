@@ -11,8 +11,8 @@ ADD clean /root/
 WORKDIR /tmp
 
 # Binutils
-RUN curl https://ftp.gnu.org/gnu/binutils/binutils-2.27.tar.bz2 | tar xj \
-    && mkdir build && cd build && ../binutils-2.27/configure \
+RUN curl https://ftp.gnu.org/gnu/binutils/binutils-2.28.tar.bz2 | tar xj \
+    && mkdir build && cd build && ../binutils-2.28/configure \
     && make -j $NUM_CPU && make install && /root/clean
 
 # GMP
@@ -21,8 +21,8 @@ RUN curl https://gmplib.org/download/gmp/gmp-6.1.2.tar.bz2 | tar xj \
     && make -j $NUM_CPU install && /root/clean
 
 # mpfr
-RUN curl http://www.mpfr.org/mpfr-current/mpfr-3.1.5.tar.bz2 | tar xj \
-    && mkdir build && cd build && ../mpfr-3.1.5/configure \
+RUN curl http://www.mpfr.org/mpfr-current/mpfr-3.1.6.tar.bz2 | tar xj \
+    && mkdir build && cd build && ../mpfr-3.1.6/configure \
     && make -j $NUM_CPU install && /root/clean
 
 # mpc
@@ -48,16 +48,16 @@ RUN curl https://www.openssl.org/source/openssl-1.0.2k.tar.gz | tar xz \
     && /root/clean
 
 # Curl
-RUN curl -k https://curl.haxx.se/download/curl-7.53.1.tar.bz2 | tar xj \
+RUN curl http://cdn-fastly.deb.debian.org/debian/pool/main/c/curl/curl_7.55.1.orig.tar.gz | tar xz \
     && cd * && ./configure --disable-static && make -j $NUM_CPU && make install \
     && yum remove -y curl expat-devel && /root/clean
 
 # python
-RUN curl https://www.python.org/ftp/python/2.7.13/Python-2.7.13.tgz | tar xz \
+RUN curl https://www.python.org/ftp/python/2.7.14/Python-2.7.14.tgz | tar xz \
     && cd * && ./configure --enable-shared && make -j $NUM_CPU \
     && make install && /root/clean
 # cmake
-RUN curl https://cmake.org/files/v3.7/cmake-3.7.2.tar.gz | tar xz \
+RUN curl https://cmake.org/files/v3.9/cmake-3.9.3.tar.gz | tar xz \
     && cd * && ./bootstrap && make -j $NUM_CPU \ 
     && make install && /root/clean
 # chrpath
@@ -65,7 +65,7 @@ RUN curl https://alioth.debian.org/frs/download.php/file/3979/chrpath-0.16.tar.g
     && cd * && ./configure && make install && /root/clean
 
 # Git
-RUN curl https://www.kernel.org/pub/software/scm/git/git-2.12.2.tar.gz | tar xz \
+RUN curl https://www.kernel.org/pub/software/scm/git/git-2.14.2.tar.gz | tar xz \
     && cd * && ./configure --prefix=/usr/local && make -j $NUM_CPU  \
     && make NO_INSTALL_HARDLINKS=YesPlease install && /root/clean
 
@@ -79,11 +79,11 @@ RUN curl http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.gz | tar xz \
     && cd * && ./configure && make -j $NUM_CPU && make install && /root/clean
 RUN curl https://ftp.gnu.org/gnu/libtool/libtool-2.4.6.tar.gz | tar xz \
     && cd * && ./configure && make -j $NUM_CPU && make install && /root/clean
-RUN curl https://ftp.gnu.org/gnu/automake/automake-1.15.tar.gz | tar xz \
+RUN curl https://ftp.gnu.org/gnu/automake/automake-1.15.1.tar.gz | tar xz \
     && cd * && ./configure && make -j $NUM_CPU && make install && /root/clean
 
 # hwloc and openmpi
-RUN curl https://www.open-mpi.org/software/hwloc/v1.11/downloads/hwloc-1.11.6.tar.bz2 | tar xj \
+RUN curl https://www.open-mpi.org/software/hwloc/v1.11/downloads/hwloc-1.11.8.tar.bz2 | tar xj \
     && cd * && ./configure && make -j $NUM_CPU && make install && /root/clean
 
 RUN curl https://www.open-mpi.org/software/ompi/v1.8/downloads/openmpi-1.8.8.tar.bz2 | tar xj \
