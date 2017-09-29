@@ -89,3 +89,8 @@ RUN curl https://www.open-mpi.org/software/hwloc/v1.11/downloads/hwloc-1.11.8.ta
 RUN curl https://www.open-mpi.org/software/ompi/v1.8/downloads/openmpi-1.8.8.tar.bz2 | tar xj \
     && cd * && ./configure --disable-io-romio && make -j $NUM_CPU \
     && make install && /root/clean
+
+# nproc
+RUN curl https://ftp.gnu.org/gnu/coreutils/coreutils-8.13.tar.gz | tar xz \
+    && cd * && ./configure && make -j $NUM_CPU && cp src/nproc /usr/local/bin/ \
+    && /root/clean
