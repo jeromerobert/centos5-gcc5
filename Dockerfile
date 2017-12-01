@@ -11,6 +11,19 @@ RUN yum install -y curl bzip2 gcc-c++ make m4 file pkgconfig perl expat-devel zl
 ADD clean /root/
 WORKDIR /tmp
 
+# OpenSSL
+RUN curl https://www.openssl.org/source/openssl-1.0.2k.tar.gz | tar xz \
+    && cd * \
+    && ./config --prefix=/usr/local --openssldir=/usr/local shared \
+    && make && make install \
+    && rm /usr/local/lib64/libcrypto.a /usr/local/lib64/libssl.a \
+    && /root/clean
+
+# Curl
+RUN curl http://cdn-fastly.deb.debian.org/debian/pool/main/c/curl/curl_7.55.1.orig.tar.gz | tar xz \
+    && cd * && ./configure --disable-static && make -j $NUM_CPU && make install \
+    && yum remove -y curl expat-devel && /root/clean
+
 # Binutils
 RUN curl https://ftp.gnu.org/gnu/binutils/binutils-2.28.tar.bz2 | tar xj \
     && mkdir build && cd build && ../binutils-2.28/configure \
@@ -39,19 +52,6 @@ RUN curl http://fr.mirror.babylon.network/gcc/releases/gcc-5.4.0/gcc-5.4.0.tar.b
     && strip /usr/local/libexec/gcc/x86_64-unknown-linux-gnu/5.4.0/* || true \
     && yum remove -y binutils libstdc++-devel \
     && cd /usr/local/bin && ln -s gcc cc && /root/clean
-
-# OpenSSL
-RUN curl https://www.openssl.org/source/openssl-1.0.2k.tar.gz | tar xz \
-    && cd * \
-    && ./config --prefix=/usr/local --openssldir=/usr/local shared \
-    && make && make install \
-    && rm /usr/local/lib64/libcrypto.a /usr/local/lib64/libssl.a \
-    && /root/clean
-
-# Curl
-RUN curl http://cdn-fastly.deb.debian.org/debian/pool/main/c/curl/curl_7.55.1.orig.tar.gz | tar xz \
-    && cd * && ./configure --disable-static && make -j $NUM_CPU && make install \
-    && yum remove -y curl expat-devel && /root/clean
 
 # python
 RUN curl https://www.python.org/ftp/python/2.7.14/Python-2.7.14.tgz | tar xz \
