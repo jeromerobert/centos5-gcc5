@@ -83,13 +83,9 @@ RUN curl https://ftp.gnu.org/gnu/libtool/libtool-2.4.6.tar.gz | tar xz \
 RUN curl https://ftp.gnu.org/gnu/automake/automake-1.15.1.tar.gz | tar xz \
     && cd * && ./configure && make -j $NUM_CPU && make install && /root/clean
 
-# hwloc and openmpi
+# hwloc
 RUN curl https://www.open-mpi.org/software/hwloc/v1.11/downloads/hwloc-1.11.8.tar.bz2 | tar xj \
     && cd * && ./configure && make -j $NUM_CPU && make install && /root/clean
-
-RUN curl https://www.open-mpi.org/software/ompi/v1.8/downloads/openmpi-1.8.8.tar.bz2 | tar xj \
-    && cd * && ./configure --disable-io-romio && make -j $NUM_CPU \
-    && make install && /root/clean
 
 # nproc
 RUN curl https://ftp.gnu.org/gnu/coreutils/coreutils-8.13.tar.gz | tar xz \
