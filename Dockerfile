@@ -16,6 +16,8 @@ RUN curl https://www.openssl.org/source/openssl-1.0.2n.tar.gz | tar xz \
     && cd * \
     && ./config --prefix=/usr/local --openssldir=/usr/local shared \
     && make && make install \
+    && mkdir /usr/local/ssl && cd /usr/local/ssl \
+    && ln -s ../include/openssl include && ln -s ../lib64 lib \
     && rm /usr/local/lib64/libcrypto.a /usr/local/lib64/libssl.a \
     && /root/clean
 
