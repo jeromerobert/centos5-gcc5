@@ -48,7 +48,7 @@ RUN curl http://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz | tar xz \
     && make -j $NUM_CPU install && /root/clean
 
 # gcc
-RUN curl http://nl.mirror.babylon.network/gcc/releases/gcc-5.5.0/gcc-5.5.0.tar.gz | tar xz \
+RUN curl http://mirrors-usa.go-parts.com/gcc/releases/gcc-5.5.0/gcc-5.5.0.tar.gz | tar xz \
     && mkdir build && cd build \
     && ../gcc-5.5.0/configure --enable-languages=c,c++,fortran --disable-multilib \
     && make -j $NUM_CPU && make install \
@@ -69,7 +69,7 @@ RUN curl https://alioth.debian.org/frs/download.php/file/3979/chrpath-0.16.tar.g
     && cd * && ./configure && make install && /root/clean
 
 # Git
-RUN curl https://www.kernel.org/pub/software/scm/git/git-2.16.2.tar.gz | tar xz \
+RUN curl -L https://www.kernel.org/pub/software/scm/git/git-2.16.2.tar.gz | tar xz \
     && cd * && ./configure --prefix=/usr/local && make -j $NUM_CPU  \
     && make NO_INSTALL_HARDLINKS=YesPlease install && /root/clean
 
@@ -95,3 +95,10 @@ RUN curl https://ftp.gnu.org/gnu/coreutils/coreutils-8.19.tar.xz | unxz | tar x 
     && cd * && FORCE_UNSAFE_CONFIGURE=1 ./configure && make -j $NUM_CPU \
     && cp src/nproc /usr/local/bin/ \
     && /root/clean
+
+# pip
+RUN curl -O https://bootstrap.pypa.io/get-pip.py \
+ && python get-pip.py && rm get-pip.py
+
+# cython
+RUN pip install Cython
