@@ -12,7 +12,7 @@ ADD clean /root/
 WORKDIR /tmp
 
 # OpenSSL
-RUN curl https://www.openssl.org/source/openssl-1.0.2n.tar.gz | tar xz \
+RUN curl https://www.openssl.org/source/openssl-1.0.2o.tar.gz | tar xz \
     && cd * \
     && ./config --prefix=/usr/local --openssldir=/usr/local shared \
     && make && make install \
@@ -57,24 +57,24 @@ RUN curl http://mirrors-usa.go-parts.com/gcc/releases/gcc-5.5.0/gcc-5.5.0.tar.gz
     && cd /usr/local/bin && ln -s gcc cc && /root/clean
 
 # python
-RUN curl https://www.python.org/ftp/python/2.7.14/Python-2.7.14.tgz | tar xz \
+RUN curl https://www.python.org/ftp/python/2.7.15/Python-2.7.15.tgz | tar xz \
     && cd * && ./configure --enable-shared && make -j $NUM_CPU \
     && make install && /root/clean
 # cmake
-RUN curl https://cmake.org/files/v3.10/cmake-3.10.2.tar.gz | tar xz \
+RUN curl https://cmake.org/files/v3.11/cmake-3.11.3.tar.gz | tar xz \
     && cd * && ./bootstrap && make -j $NUM_CPU \ 
     && make install && /root/clean
 # chrpath
-RUN curl https://alioth.debian.org/frs/download.php/file/3979/chrpath-0.16.tar.gz | tar xz \
+RUN curl -L http://http.debian.net/debian/pool/main/c/chrpath/chrpath_0.16.orig.tar.gz | tar xz \
     && cd * && ./configure && make install && /root/clean
 
 # Git
-RUN curl -L https://www.kernel.org/pub/software/scm/git/git-2.16.2.tar.gz | tar xz \
+RUN curl -L https://www.kernel.org/pub/software/scm/git/git-2.17.1.tar.gz | tar xz \
     && cd * && ./configure --prefix=/usr/local && make -j $NUM_CPU  \
     && make NO_INSTALL_HARDLINKS=YesPlease install && /root/clean
 
 # Swig
-RUN curl https://superb-dca2.dl.sourceforge.net/project/swig/swig/swig-2.0.12/swig-2.0.12.tar.gz | tar xz \
+RUN curl -L https://downloads.sourceforge.net/project/swig/swig/swig-2.0.12/swig-2.0.12.tar.gz | tar xz \
     && cd * && ./configure --without-pcre && make -j $NUM_CPU && make install && /root/clean
 
 # Autotools
@@ -87,7 +87,7 @@ RUN curl https://ftp.gnu.org/gnu/automake/automake-1.15.1.tar.gz | tar xz \
     && cd * && ./configure && make -j $NUM_CPU && make install && /root/clean
 
 # hwloc
-RUN curl https://www.open-mpi.org/software/hwloc/v1.11/downloads/hwloc-1.11.9.tar.bz2 | tar xj \
+RUN curl https://download.open-mpi.org/release/hwloc/v1.11/hwloc-1.11.10.tar.bz2 | tar xj \
     && cd * && ./configure && make -j $NUM_CPU && make install && /root/clean
 
 # nproc
