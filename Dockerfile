@@ -6,7 +6,8 @@ RUN echo /usr/local/lib > /etc/ld.so.conf.d/local.conf && echo /usr/local/lib64 
 ENV PKG_CONFIG_PATH=/usr/local/lib64/pkgconfig:/usr/local/lib/pkgconfig
 ARG NUM_CPU=24
 RUN yum install -y curl bzip2 gcc-c++ make m4 file pkgconfig perl expat-devel zlib-devel gettext \
-    which openssh-clients rsync bzip2-devel readline-devel mesa-libGLU-devel man xz \
+    which openssh-clients rsync bzip2-devel readline-devel mesa-libGLU-devel man xz patch \
+    libXt-devel libXtst libXrender libXi \
     && yum clean all && rm -rf /usr/share/locale
 ADD clean /root/
 WORKDIR /tmp
