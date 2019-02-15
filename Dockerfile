@@ -13,7 +13,7 @@ ADD clean /root/
 WORKDIR /tmp
 
 # OpenSSL
-RUN curl https://www.openssl.org/source/openssl-1.0.2o.tar.gz | tar xz \
+RUN curl https://www.openssl.org/source/openssl-1.0.2q.tar.gz | tar xz \
     && cd * \
     && ./config --prefix=/usr/local --openssldir=/usr/local shared \
     && make && make install \
@@ -23,7 +23,7 @@ RUN curl https://www.openssl.org/source/openssl-1.0.2o.tar.gz | tar xz \
     && /root/clean
 
 # Curl
-RUN curl http://cdn-fastly.deb.debian.org/debian/pool/main/c/curl/curl_7.56.1.orig.tar.gz | tar xz \
+RUN curl http://cdn-fastly.deb.debian.org/debian/pool/main/c/curl/curl_7.64.0.orig.tar.gz | tar xz \
     && cd * && ./configure --disable-static && make -j $NUM_CPU && make install \
     && yum remove -y curl expat-devel && /root/clean \
     && curl https://curl.haxx.se/ca/cacert.pem -o /etc/pki/tls/certs/ca-bundle.crt
@@ -62,7 +62,7 @@ RUN curl https://www.python.org/ftp/python/2.7.15/Python-2.7.15.tgz | tar xz \
     && cd * && ./configure --enable-shared && make -j $NUM_CPU \
     && make install && /root/clean
 # cmake
-RUN curl https://cmake.org/files/v3.11/cmake-3.11.3.tar.gz | tar xz \
+RUN curl -L https://github.com/Kitware/CMake/releases/download/v3.13.4/cmake-3.13.4.tar.gz | tar xz \
     && cd * && ./bootstrap && make -j $NUM_CPU \ 
     && make install && /root/clean
 # chrpath
@@ -70,7 +70,7 @@ RUN curl -L http://http.debian.net/debian/pool/main/c/chrpath/chrpath_0.16.orig.
     && cd * && ./configure && make install && /root/clean
 
 # Git
-RUN curl -L https://www.kernel.org/pub/software/scm/git/git-2.17.1.tar.gz | tar xz \
+RUN curl -L https://www.kernel.org/pub/software/scm/git/git-2.20.1.tar.gz | tar xz \
     && cd * && ./configure --prefix=/usr/local && make -j $NUM_CPU  \
     && make NO_INSTALL_HARDLINKS=YesPlease install && /root/clean
 
