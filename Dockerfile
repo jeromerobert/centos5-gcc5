@@ -103,3 +103,8 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py \
 
 # cython
 RUN pip install Cython
+
+# ffi
+RUN curl https://sourceware.org/pub/libffi/libffi-3.2.1.tar.gz | tar xz \
+ && cd * && ./configure --disable-static && make -j $NUM_CPU install \
+ && /root/clean
